@@ -1,0 +1,81 @@
+{% extends 'Base.html'%}
+{% block content%}
+{% if messages %}
+
+{% for message in messages %}
+{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+{% endfor %}
+
+{% endif %}
+<style>
+        .box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.box > div { /*The > denotes only the first or immediate child will be affected*/
+  width: 800px;
+  height: auto;
+  /*border: dotted;
+*/
+  background-color: #E5DDC5;
+  border-radius: 5px
+}
+
+.box > div label{
+    
+}
+
+
+</style>
+
+<div style="background-image:  url(); background-repeat:no-repeat;background-size:cover;  min-height:650px; width:100%;height: auto;">
+  <div style="height:10px;background-color: orange;">
+  
+</div>
+  <header>
+    <h1>New User Registration</h1>
+  </header>
+    <div class="box">
+        <div class="shadow-lg p-3 mb-5 ">
+             <div style="text-align: center;"><h3 >User Registration</h3> </div>
+            <hr class="border border-primary border-3 opacity-75">
+            <form method="POST" action="/user-registration/" enctype="multipart/form-data" style="padding:25px;">
+{#                {% csrf_token %}#}
+              <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <input type="text" class="form-control" placeholder="Fullname" name="fullname">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                    <input type="email" class="form-control" placeholder="Email" name="email">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                    <input type="text" class="form-control" placeholder="Phone" name="phone">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input type="password" class="form-control" placeholder="Password" name="password">
+                </div>
+            </div>
+         
+            <div style="text-align: center;">
+              <button style="width:50%" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+              <br>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

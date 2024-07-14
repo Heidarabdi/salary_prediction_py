@@ -1,0 +1,118 @@
+{% extends 'Base.html'%}
+{% block content%}
+{% if messages %}
+
+{% for message in messages %}
+{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+{% endfor %}
+
+{% endif %}
+<style>
+        .box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.box > div { /*The > denotes only the first or immediate child will be affected*/
+  width: 800px;
+  height: auto;
+  /*border: dotted;
+*/
+  background-color: #E5DDC5;
+  border-radius: 5px
+}
+
+.box > div label{
+    
+}
+
+
+</style>
+
+<div style="background-image:  url(); background-repeat:no-repeat;background-size:cover;  min-height:650px; width:100%;height: auto;">
+  <div style="height:10px;background-color: orange;">
+  
+</div>
+  <header>
+    <h1>Prediction</h1>
+  </header>
+    <div class="box">
+        <div class="shadow-lg p-3 mb-5 ">
+             <div style="text-align: center;"><h3 >Inputs for Prediction</h3> </div>
+            <hr class="border border-primary border-3 opacity-75">
+            <form method="POST" action="/prediction/" enctype="multipart/form-data" style="padding:25px;">
+{#                {% csrf_token %}#}
+
+              <label class="form-label">Name</label>
+              <input class="form-control" type="text" name="name">
+              <br>
+
+              <label class="form-label">Job Title</label>
+              <select class="form-select" for="job_title" name="job_title">
+                  {% for job in jb_title %}
+                    <option value="{{ job }}">{{ job }}</option>
+                    {% endfor %}
+              </select>
+              <br>
+
+              <label class="form-label" for="gender">Gender:</label>
+                <select class="form-select" id="gender" name="gender">
+                    {% for ge in gender %}
+                        <option value="{{ ge }}">{{ ge }}</option>
+                    {% endfor %}
+                </select><br><br>
+
+                <label class="form-label" for="age">Age:</label>
+                <input class="form-control" type="number" id="age" name="age" min="18" max="80"><br><br>
+
+                <label class="form-label" for="education">Education Level:</label>
+                <select class="form-select" id="education" name="education">
+                    {% for edu in education %}
+                        <option value="{{ edu }}">{{ edu }}</option>
+                    {% endfor %}
+                </select><br><br>
+
+
+                <label class="form-label" for="years_of_experience">Years of Experience:</label>
+                <input class="form-control" type="number" id="years_of_experience" name="years_of_experience" min="0" max="50"><br><br>
+         
+            <div style="text-align: center;">
+              <button style="width:50%" type="submit" class="btn btn-primary">Predict</button>
+            </div>
+              <br>
+            </form>
+        {% if prediction %}
+{#            Modal #}
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Salary Prediction</h5>
+            </div>
+            <div class="modal-body">
+                <h4 style="text-align: center;">The predicted salary is <span style="color: green;">${{ prediction }}</span></h4>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='/prediction/'">Close</button>
+            </div>
+            </div>
+            </div>
+            </div>
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const myModal = new bootstrap.Modal(document.getElementById('exampleModalCenter'), {
+                    keyboard: false
+                });
+                myModal.show();
+            });
+            </script>
+        {% endif %}
+
+    </div>
+</div>
+
+
+{% endblock %}
