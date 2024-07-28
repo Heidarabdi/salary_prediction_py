@@ -4,4 +4,4 @@ db = TinyDB('db.json')
 user_table = db.table('user')
 prediction_table = db.table('prediction')
 
-User = Query()
+Query = Query()

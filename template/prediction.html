@@ -43,7 +43,7 @@
         <div class="shadow-lg p-3 mb-5 ">
              <div style="text-align: center;"><h3 >Inputs for Prediction</h3> </div>
             <hr class="border border-primary border-3 opacity-75">
-            <form method="POST" action="/prediction/" enctype="multipart/form-data" style="padding:25px;">
+            <form method="POST" action="/prediction/" enctype="multipart/form-data" style="padding:25px;" onsubmit="return validateForm()">
 {#                {% csrf_token %}#}
 
               <label class="form-label">Name</label>
@@ -61,12 +61,14 @@
               <label class="form-label" for="gender">Gender:</label>
                 <select class="form-select" id="gender" name="gender">
                     {% for ge in gender %}
+                        {% if ge != 'Other' %}
                         <option value="{{ ge }}">{{ ge }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select><br><br>
 
                 <label class="form-label" for="age">Age:</label>
-                <input class="form-control" type="number" id="age" name="age" min="18" max="80"><br><br>
+                <input class="form-control" type="number" id="age" name="age" min="18" max="60"><br><br>
 
                 <label class="form-label" for="education">Education Level:</label>
                 <select class="form-select" id="education" name="education">
@@ -77,7 +79,7 @@
 
 
                 <label class="form-label" for="years_of_experience">Years of Experience:</label>
-                <input class="form-control" type="number" id="years_of_experience" name="years_of_experience" min="0" max="50"><br><br>
+                <input class="form-control" type="number" id="years_of_experience" name="years_of_experience" min="0" max="40"><br><br>
          
             <div style="text-align: center;">
               <button style="width:50%" type="submit" class="btn btn-primary">Predict</button>
@@ -113,6 +115,169 @@
 
     </div>
 </div>
+
+
+    <script>
+        function validateForm(){
+            const age = document.getElementById('age').value;
+            const years_of_experience = document.getElementById('years_of_experience').value;
+            const education = document.getElementById('education').value;
+
+            // PhD , Master's, Bachelor's, High School
+            if(education === 'PhD'){
+                if (age < 30){
+                    alert('Age must be greater than 30');
+                    return false;
+                }
+
+                // age btw 30 to 40 years of experience must be greater than 5
+                if(age >= 30 && age <= 40){
+                    if (years_of_experience < 5){
+                        alert('Years of experience must be greater than 5');
+                        return false;
+                    }
+                }
+
+                // age btw 40 to 50 years of experience must be greater than 8
+                if(age >= 40 && age <= 50){
+                    if (years_of_experience < 8){
+                        alert('Years of experience must be greater than 8');
+                        return false;
+                    }
+                }
+
+                // age btw 50 to 60 years of experience must be greater than 10
+                if(age >= 50 && age <= 60){
+                    if (years_of_experience < 10){
+                        alert('Years of experience must be greater than 10');
+                        return false;
+                    }
+                }
+
+
+            }
+            if(education === 'Master\'s Degree') {
+                if (age < 25) {
+                    alert('Age must be greater than 25');
+                    return false;
+                }
+
+                // age btw 25 to 35 years of experience must be greater than 3
+                if(age >= 25 && age <= 35){
+                    if (years_of_experience < 3){
+                        alert('Years of experience must be greater than 3');
+                        return false;
+                    }
+                }
+
+                // age btw 35 to 45 years of experience must be greater than 6
+                if(age >= 35 && age <= 45){
+                    if (years_of_experience < 6){
+                        alert('Years of experience must be greater than 6');
+                        return false;
+                    }
+                }
+
+                // age btw 45 to 55 years of experience must be greater than 8
+                if(age >= 45 && age <= 55){
+                    if (years_of_experience < 8){
+                        alert('Years of experience must be greater than 8');
+                        return false;
+                    }
+                }
+
+                // age btw 55 to 60 years of experience must be greater than 10
+                if(age >= 55 && age <= 60){
+                    if (years_of_experience < 10){
+                        alert('Years of experience must be greater than 10');
+                        return false;
+                    }
+                }
+
+            }
+
+            if(education === 'Bachelor\'s Degree') {
+                if (age < 22) {
+                    alert('Age must be greater than 22');
+                    return false;
+                }
+
+                // age btw 22 to 32 years of experience must be greater than 2
+                if(age >= 22 && age <= 32){
+                    if (years_of_experience < 2){
+                        alert('Years of experience must be greater than 2');
+                        return false;
+                    }
+                }
+
+                // age btw 32 to 42 years of experience must be greater than 5
+                if(age >= 32 && age <= 42){
+                    if (years_of_experience < 5){
+                        alert('Years of experience must be greater than 5');
+                        return false;
+                    }
+                }
+
+                // age btw 42 to 52 years of experience must be greater than 7
+                if(age >= 42 && age <= 52){
+                    if (years_of_experience < 7){
+                        alert('Years of experience must be greater than 7');
+                        return false;
+                    }
+                }
+
+                // age btw 52 to 60 years of experience must be greater than 9
+                if(age >= 52 && age <= 60){
+                    if (years_of_experience < 9){
+                        alert('Years of experience must be greater than 9');
+                        return false;
+                    }
+                }
+
+            }
+
+            if(education === 'High School') {
+              if (age < 18) {
+                    alert('Age must be greater than 18');
+                    return false;
+                }
+
+                // age btw 18 to 28 years of experience must be greater than 1
+                if(age >= 18 && age <= 28){
+                    if (years_of_experience < 1){
+                        alert('Years of experience must be greater than 1');
+                        return false;
+                    }
+                }
+
+                // age btw 28 to 38 years of experience must be greater than 3
+                if(age >= 28 && age <= 38){
+                    if (years_of_experience < 3){
+                        alert('Years of experience must be greater than 3');
+                        return false;
+                    }
+                }
+
+                // age btw 38 to 48 years of experience must be greater than 5
+                if(age >= 38 && age <= 48){
+                    if (years_of_experience < 5){
+                        alert('Years of experience must be greater than 5');
+                        return false;
+                    }
+                }
+
+                // age btw 48 to 60 years of experience must be greater than 7
+                if(age >= 48 && age <= 60){
+                    if (years_of_experience < 7){
+                        alert('Years of experience must be greater than 7');
+                        return false;
+                    }
+                }
+            }
+
+
+        }
+    </script>
 
 
 {% endblock %}

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from config import templates
-from database import user_table, User
+from database import user_table, Query
 router = APIRouter()
 
 
@@ -15,7 +15,7 @@ async def post_user_login(request: Request,
                           email: str = Form(...),
                           password: str = Form(...)):
     # Process login data
-    user = user_table.get(User.email == email)
+    user = user_table.get(Query.email == email)
     if user and (user["password"] == password):
         # Set session
         request.session["user"] = {
@@ -25,7 +25,10 @@ async def post_user_login(request: Request,
         request.session["logged_in"] = True
         return RedirectResponse("/", status_code=302)
     else:
-        raise HTTPException(status_code=401, detail="Invalid email or password")
+        return templates.TemplateResponse("user-login.html", {
+            "request": request,
+            "messages": "Invalid email or password"
+        })
 
 
 @router.get("/logout")

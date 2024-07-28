@@ -2,10 +2,7 @@
 {% block content%}
 {% if messages %}
 
-{% for message in messages %}
-{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
-
-{% endfor %}
+<script>alert("{{ messages }}")</script>
 
 {% endif %}
 <style>
@@ -48,25 +45,25 @@
               <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                    <input type="text" class="form-control" placeholder="Fullname" name="fullname">
+                    <input type="text" class="form-control" placeholder="Fullname" name="fullname" required>
                 </div>
             </div>
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                    <input type="email" class="form-control" placeholder="Email" name="email">
+                    <input type="email" class="form-control" placeholder="Email" name="email" required>
                 </div>
             </div>
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-telephone"></i></span>
-                    <input type="text" class="form-control" placeholder="Phone" name="phone">
+                    <input type="text" class="form-control" placeholder="Phone" name="phone" required>
                 </div>
             </div>
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                    <input type="password" class="form-control" placeholder="Password" name="password">
+                    <input type="password" class="form-control" placeholder="Password" name="password" required>
                 </div>
             </div>
          

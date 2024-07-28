@@ -1,10 +1,7 @@
 {% extends 'Base.html'%}
 {% block content%}
 {% if messages %}
-{% for message in messages %}
-{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
-
-{% endfor %}
+<script>alert("{{ messages }}")</script>
 
 {% endif %}
 <style>
@@ -97,4 +94,8 @@
         </div>
     </div>
 </div>
+
+<script>
+
+</script>
 {% endblock %}
