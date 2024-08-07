@@ -45,6 +45,12 @@ async def post_prediction(request: Request,
     })
 
     prediction = model.predict(make_prediction)
+    print(f"Score: {prediction[0]}")
+
+    # update the prediction table ids
+    entires = prediction_table.all()
+    for i, entry in enumerate(entires):
+        prediction_table.update({"ID": i + 1}, doc_ids=[entry.doc_id])
     prediction_table.insert({
         "ID": len(prediction_table) + 1,
         "Date": pd.to_datetime("today").strftime("%d/%m/%Y"),  # "01/01/2021"

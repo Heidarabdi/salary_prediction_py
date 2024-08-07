@@ -118,165 +118,94 @@
 
 
     <script>
-        function validateForm(){
-            const age = document.getElementById('age').value;
-            const years_of_experience = document.getElementById('years_of_experience').value;
-            const education = document.getElementById('education').value;
+        function validateForm() {
+  const age = Number(document.getElementById('age').value);
+  const years_of_experience = Number(document.getElementById('years_of_experience').value);
+  const education = document.getElementById('education').value;
 
-            // PhD , Master's, Bachelor's, High School
-            if(education === 'PhD'){
-                if (age < 30){
-                    alert('Age must be greater than 30');
-                    return false;
-                }
+  // Check if fields are not empty
+  if (!age || !years_of_experience || !education) {
+    alert('Please fill out all fields.');
+    return false;
+  }
 
-                // age btw 30 to 40 years of experience must be greater than 5
-                if(age >= 30 && age <= 40){
-                    if (years_of_experience < 5){
-                        alert('Years of experience must be greater than 5');
-                        return false;
-                    }
-                }
+  // Ensure age and years_of_experience are numbers and within a realistic range
+  if (isNaN(age) || age <= 0 || age > 100) {
+    alert('Please enter a valid age between 1 and 100.');
+    return false;
+  }
 
-                // age btw 40 to 50 years of experience must be greater than 8
-                if(age >= 40 && age <= 50){
-                    if (years_of_experience < 8){
-                        alert('Years of experience must be greater than 8');
-                        return false;
-                    }
-                }
+  if (isNaN(years_of_experience) || years_of_experience < 0) {
+    alert('Please enter a valid number of years of experience.');
+    return false;
+  }
 
-                // age btw 50 to 60 years of experience must be greater than 10
-                if(age >= 50 && age <= 60){
-                    if (years_of_experience < 10){
-                        alert('Years of experience must be greater than 10');
-                        return false;
-                    }
-                }
+  // Ensure years of experience is not more than age
+  if (years_of_experience > age) {
+    alert('Years of experience cannot exceed age.');
+    return false;
+  }
 
+  // Ensure starting age is at least 18
+  const startingAge = age - years_of_experience;
+  if (startingAge < 18) {
+    alert('The difference between age and years of experience must be at least 18.');
+    return false;
+  }
 
-            }
-            if(education === 'Master\'s Degree') {
-                if (age < 25) {
-                    alert('Age must be greater than 25');
-                    return false;
-                }
+  // Define age and experience requirements
+  const rules = {
+    'PhD': [
+      { minAge: 30, maxAge: 40, minExperience: 5 },
+      { minAge: 40, maxAge: 50, minExperience: 8 },
+      { minAge: 50, maxAge: 60, minExperience: 10 }
+    ],
+    "Master's Degree": [
+      { minAge: 25, maxAge: 35, minExperience: 3 },
+      { minAge: 35, maxAge: 45, minExperience: 6 },
+      { minAge: 45, maxAge: 55, minExperience: 8 },
+      { minAge: 55, maxAge: 60, minExperience: 10 }
+    ],
+    "Bachelor's Degree": [
+      { minAge: 22, maxAge: 32, minExperience: 2 },
+      { minAge: 32, maxAge: 42, minExperience: 5 },
+      { minAge: 42, maxAge: 52, minExperience: 7 },
+      { minAge: 52, maxAge: 60, minExperience: 9 }
+    ],
+    'High School': [
+      { minAge: 18, maxAge: 28, minExperience: 1 },
+      { minAge: 28, maxAge: 38, minExperience: 3 },
+      { minAge: 38, maxAge: 48, minExperience: 5 },
+      { minAge: 48, maxAge: 60, minExperience: 7 }
+    ]
+  };
 
-                // age btw 25 to 35 years of experience must be greater than 3
-                if(age >= 25 && age <= 35){
-                    if (years_of_experience < 3){
-                        alert('Years of experience must be greater than 3');
-                        return false;
-                    }
-                }
+  // Ensure a valid education level is selected
+  if (!rules[education]) {
+    alert('Please select a valid education level.');
+    return false;
+  }
 
-                // age btw 35 to 45 years of experience must be greater than 6
-                if(age >= 35 && age <= 45){
-                    if (years_of_experience < 6){
-                        alert('Years of experience must be greater than 6');
-                        return false;
-                    }
-                }
+  // Check for minimum age requirement
+  if (age < rules[education][0].minAge) {
+    alert(`Age must be greater than ${rules[education][0].minAge}`);
+    return false;
+  }
 
-                // age btw 45 to 55 years of experience must be greater than 8
-                if(age >= 45 && age <= 55){
-                    if (years_of_experience < 8){
-                        alert('Years of experience must be greater than 8');
-                        return false;
-                    }
-                }
+  // Validate against experience rules based on age
+  for (const rule of rules[education]) {
+    if (age >= rule.minAge && age <= rule.maxAge) {
+      if (years_of_experience < rule.minExperience) {
+        alert(`Years of experience must be greater than ${rule.minExperience}`);
+        return false;
+      }
+    }
+  }
 
-                // age btw 55 to 60 years of experience must be greater than 10
-                if(age >= 55 && age <= 60){
-                    if (years_of_experience < 10){
-                        alert('Years of experience must be greater than 10');
-                        return false;
-                    }
-                }
+  // Form is valid
+  return true;
+}
 
-            }
-
-            if(education === 'Bachelor\'s Degree') {
-                if (age < 22) {
-                    alert('Age must be greater than 22');
-                    return false;
-                }
-
-                // age btw 22 to 32 years of experience must be greater than 2
-                if(age >= 22 && age <= 32){
-                    if (years_of_experience < 2){
-                        alert('Years of experience must be greater than 2');
-                        return false;
-                    }
-                }
-
-                // age btw 32 to 42 years of experience must be greater than 5
-                if(age >= 32 && age <= 42){
-                    if (years_of_experience < 5){
-                        alert('Years of experience must be greater than 5');
-                        return false;
-                    }
-                }
-
-                // age btw 42 to 52 years of experience must be greater than 7
-                if(age >= 42 && age <= 52){
-                    if (years_of_experience < 7){
-                        alert('Years of experience must be greater than 7');
-                        return false;
-                    }
-                }
-
-                // age btw 52 to 60 years of experience must be greater than 9
-                if(age >= 52 && age <= 60){
-                    if (years_of_experience < 9){
-                        alert('Years of experience must be greater than 9');
-                        return false;
-                    }
-                }
-
-            }
-
-            if(education === 'High School') {
-              if (age < 18) {
-                    alert('Age must be greater than 18');
-                    return false;
-                }
-
-                // age btw 18 to 28 years of experience must be greater than 1
-                if(age >= 18 && age <= 28){
-                    if (years_of_experience < 1){
-                        alert('Years of experience must be greater than 1');
-                        return false;
-                    }
-                }
-
-                // age btw 28 to 38 years of experience must be greater than 3
-                if(age >= 28 && age <= 38){
-                    if (years_of_experience < 3){
-                        alert('Years of experience must be greater than 3');
-                        return false;
-                    }
-                }
-
-                // age btw 38 to 48 years of experience must be greater than 5
-                if(age >= 38 && age <= 48){
-                    if (years_of_experience < 5){
-                        alert('Years of experience must be greater than 5');
-                        return false;
-                    }
-                }
-
-                // age btw 48 to 60 years of experience must be greater than 7
-                if(age >= 48 && age <= 60){
-                    if (years_of_experience < 7){
-                        alert('Years of experience must be greater than 7');
-                        return false;
-                    }
-                }
-            }
-
-
-        }
     </script>
 
 
